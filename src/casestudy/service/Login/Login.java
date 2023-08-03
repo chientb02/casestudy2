@@ -10,6 +10,7 @@ public class Login {
     Scanner sc = new Scanner(System.in);
 
     ArrayList<Account> listAcc = new ArrayList<>();
+    public static String currentUser = null;
 
     public void SignUp () {
         listAcc = readAcc() ;
@@ -33,6 +34,7 @@ public class Login {
         String password = sc.nextLine();
         for (int i = 0; i < listAcc.size(); i++) {
             if(listAcc.get(i).getAccount().equals(acc) && listAcc.get(i).getPassword().equals(password) ) {
+                currentUser = acc ;
                 return true ;
             }
         }

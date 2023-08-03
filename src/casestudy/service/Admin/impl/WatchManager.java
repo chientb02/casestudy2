@@ -22,6 +22,9 @@ public class WatchManager implements IProductService , IOFile<Product> {
         this.categoryManage = categoryManage;
     }
 
+    public List<Product> getProducts() {
+        return products;
+    }
 
     @Override
     public void write(List<Product> products, String path) {
