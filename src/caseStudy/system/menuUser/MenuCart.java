@@ -16,9 +16,8 @@ public class MenuCart {
         do {
             System.out.println("1. Display cart");
             System.out.println("2. Update to Cart");
-            System.out.println("3. Check cart total price");
-            System.out.println("4. proceed To Checkout");
-            System.out.println("5. Display purchased orders");
+            System.out.println("3. proceed To Checkout");
+            System.out.println("4. Display purchased orders");
             System.out.println("0. Exit");
             System.out.println("Enter your choice: ");
             choice = Integer.parseInt(scanner.nextLine());
@@ -30,13 +29,13 @@ public class MenuCart {
                     cartManager.update();
                     break;
                 case 3:
-                    cartManager.checkBill();
-                    break;
-                case 4:
                     cartManager.proceedToCheckout();
                     break;
-                case 5 :
+                case 4:
                     cartManager.displayBill();
+                    break;
+                case 5 :
+                    cartManager.delete();
                     break;
 
             }

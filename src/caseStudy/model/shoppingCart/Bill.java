@@ -1,9 +1,11 @@
 package caseStudy.model.shoppingCart;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.List;
 
-public class Bill {
+public class Bill implements Serializable {
+    private static final long serialVersionUID = 234122996006267687L;
     private String account ;
     private List<Cart> carts ;
     private double Price ;
@@ -60,6 +62,7 @@ public class Bill {
     public void setTimeOfPurchase(LocalDate timeOfPurchase) {
         TimeOfPurchase = timeOfPurchase;
     }
+
 
     @Override
     public String toString() {

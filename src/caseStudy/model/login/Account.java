@@ -3,6 +3,7 @@ package caseStudy.model.login;
 import java.io.Serializable;
 
 public class Account implements Serializable {
+    private static final long serialVersionUID = 234122996006267687L;
     private String  account ;
     private String password ;
     public Account() {

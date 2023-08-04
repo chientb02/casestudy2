@@ -16,7 +16,6 @@ public class MainLogin {
         MenuAdmin admin = new MenuAdmin();
         MenuUser user = new MenuUser();
         Login login = new Login();
-        String nameAcc ;
         while (true) {
             System.out.println("-----------------------");
             System.out.println("1. SignUp ");

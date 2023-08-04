@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class MenuCategory {
     public void menu() {
         Scanner scanner = new Scanner(System.in);
-        CategoryManage categoryManage = new CategoryManage(scanner);
+        CategoryManage categoryManage = CategoryManage.getInstance(scanner);
         int choice;
         do {
             System.out.println("Menu");

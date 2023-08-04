@@ -18,7 +18,7 @@ import java.util.Scanner;
 public class CartManager implements ICartService, IOFile<Cart> {
     private final List<Cart> carts;
     private final List<Bill> bills;
-    private  List<Cart> listCarts;
+    private  final List<Cart> listCarts;
     private final Scanner scanner;
 
 
@@ -31,6 +31,7 @@ public class CartManager implements ICartService, IOFile<Cart> {
         this.scanner = scanner;
         carts = read(PATH);
         bills = readBill(PATHBill) ;
+        listCarts = new ArrayList<>();
         this.productManager = productManager;
     }
 
@@ -83,34 +84,42 @@ public class CartManager implements ICartService, IOFile<Cart> {
 
     @Override
     public void create() {
-        Double quantityBuy;
-        System.out.println("input name product want to buy");
-        String nameBuy = scanner.nextLine();
-        boolean flag = true;
-        for (int i = 0; i < productManager.getProducts().size(); i++) {
-            if (productManager.getProducts().get(i).getName().equals(nameBuy)) {
-                System.out.println("input quantity want to buy");
-                quantityBuy = Double.parseDouble(scanner.nextLine());
-                for (int j = 0; j < carts.size(); j++) {
-                    if (carts.get(j).getName().equals(nameBuy));{
-                        if(quantityBuy + carts.get(j).getQuantity() <= productManager.getProducts().get(i).getQuantity() ){
-                            carts.get(i).setQuantity(quantityBuy + carts.get(j).getQuantity());
-                            return;
+        try {
+            double quantityBuy;
+            System.out.println("input name product want to buy");
+            String nameBuy = scanner.nextLine();
+            boolean flag = true;
+            for (int i = 0; i < productManager.getProducts().size(); i++) {
+                if (productManager.getProducts().get(i).getName().equals(nameBuy)) {
+                    System.out.println("input quantity want to buy");
+                    quantityBuy = Double.parseDouble(scanner.nextLine());
+                    for (int k = 0; k < carts.size(); k++) {
+                        if (carts.get(k).getName().equals(nameBuy)) {
+                            if (quantityBuy + carts.get(k).getQuantity() <= productManager.getProducts().get(i).getQuantity()) {
+                                carts.get(k).setQuantity(quantityBuy + carts.get(k).getQuantity());
+                                System.out.println("Added product to cart successfully.");
+                                flag = false;
+                            }
                         }
                     }
-                }
-                if (quantityBuy < productManager.getProducts().get(i).getQuantity()) {
-                    flag = false;
-                    carts.add(new Cart(nameBuy,productManager.getProducts().get(i).getPrice(), quantityBuy, Login.currentUser));
-                    System.out.println("Added product to cart successfully.");
-                    write(carts, PATH);
+                    if (flag){
+                        if (quantityBuy < productManager.getProducts().get(i).getQuantity()) {
+                            flag = false;
+                            carts.add(new Cart(nameBuy, productManager.getProducts().get(i).getPrice(), quantityBuy, Login.currentUser));
+                            System.out.println("Added product to cart successfully.");
+                            write(carts, PATH);
+                        }
+                    }else {
+                        return;
+                    }
                 }
             }
+            if (flag) {
+                System.out.println("Input is not valid.");
+            }
+        }catch (Exception e) {
+            e.printStackTrace();
         }
-        if(flag) {
-            System.out.println("Input is not valid.");
-        }
-
     }
 
     @Override
@@ -155,9 +164,15 @@ public class CartManager implements ICartService, IOFile<Cart> {
 
     @Override
     public void delete() {
-
+        for (int i = 0; i < carts.size(); i++) {
+            if (carts.get(i).getAccount().equals(Login.currentUser)) {
+                carts.remove(carts.get(i));
+                i--;
+            }
+        }
+        System.out.println("-----");
+        write(carts, PATH);
     }
-
     @Override
     public void proceedToCheckout() {
         display();
@@ -190,13 +205,7 @@ public class CartManager implements ICartService, IOFile<Cart> {
 
             }
         }
-        for (Cart cart :
-                carts) {
-            if (cart.getAccount().equals(Login.currentUser)){
-                carts.remove(cart);
-            }
-        }
-        write(carts, PATH);
+        delete();
         productManager.write(productManager.getProducts(),"C:\\Users\\min\\IdeaProjects\\Case-Study\\src\\caseStudy\\io\\product.txt");
         System.out.println("---------------------");
     }
@@ -206,7 +215,9 @@ public class CartManager implements ICartService, IOFile<Cart> {
         double total = 0 ;
         for (int i = 0; i < carts.size(); i++) {
             if (carts.get(i).getAccount().equals(Login.currentUser)){
-                listCarts.add(carts.get(i));
+                if(listCarts.contains(carts.get(i))){
+                    listCarts.add(carts.get(i));
+                }
                 total += carts.get(i).getQuantity() * carts.get(i).getPrice() ;
             }
         }

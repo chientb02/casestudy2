@@ -98,7 +98,7 @@ public class CategoryManage implements ICategoryService , IOFile<Category> {
     public void display() {
         if (!categories.isEmpty()) {
             for (int i = 0; i < categories.size(); i++) {
-                System.out.print(i+1);
+                System.out.print(i+1 + " : ");
                 System.out.println(categories.get(i));
             }
         } else {

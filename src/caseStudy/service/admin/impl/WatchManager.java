@@ -4,6 +4,8 @@ import caseStudy.io.IOFile;
 import caseStudy.model.product.Category;
 import caseStudy.model.product.Product;
 import caseStudy.service.admin.IProductService;
+import caseStudy.service.login.Login;
+import caseStudy.service.user.impl.CartManager;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -11,6 +13,7 @@ import java.util.List;
 import java.util.Scanner;
 
 public class WatchManager implements IProductService , IOFile<Product> {
+    CartManager cartManager ;
     private final List<Product> products;
     private final Scanner scanner;
     private final caseStudy.service.admin.impl.CategoryManage categoryManage;
@@ -32,6 +35,16 @@ public class WatchManager implements IProductService , IOFile<Product> {
             obj.writeObject(products);
         } catch (IOException e) {
 
+        }
+    }
+    public void checkAcc () {
+        if (!Login.currentUser.equals("admin")) {
+            System.out.println("1: add to cart");
+            System.out.println("0: back to menu");
+            int choice = Integer.parseInt(scanner.nextLine()) ;
+            if (choice == 1) {
+                cartManager.create();
+            }
         }
     }
 
@@ -67,11 +80,11 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("input name");
             String newName = scanner.nextLine();
             System.out.println("input Price");
-            Double newPrice = Double.parseDouble(scanner.nextLine());
+            double newPrice = Double.parseDouble(scanner.nextLine());
             System.out.println("input Duration");
-            Double Duration = Double.parseDouble(scanner.nextLine());
+            double Duration = Double.parseDouble(scanner.nextLine());
             System.out.println("input Quantity");
-            Double Quantity = Double.parseDouble(scanner.nextLine());
+            double Quantity = Double.parseDouble(scanner.nextLine());
             products.add(new Product(newName,newPrice,Duration,categoryManage.getCategories().get(index),Quantity));
             System.out.println("creat is success");
 
@@ -118,15 +131,17 @@ public class WatchManager implements IProductService , IOFile<Product> {
 
     @Override
     public void display() {
+
         if (!products.isEmpty()) {
             for (int i = 0; i < products.size(); i++) {
-                System.out.print(i+1);
+                System.out.print(i+1 + ".   ");
                 System.out.println(products.get(i));
             }
         } else {
             System.out.println("Not exist product in list!");
         }
         System.out.println("                               -----");
+        checkAcc ();
     }
 
 
@@ -171,6 +186,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product in list!");
         }
         System.out.println("                               -----");
+        checkAcc ();
     }
 
     @Override
@@ -191,6 +207,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product in list!");
         }
         System.out.println("                               -----");
+        checkAcc ();
     }
 
     @Override
@@ -208,6 +225,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product have name contains this word!");
         }
         System.out.println("                               -----");
+        checkAcc ();
     }
 
     @Override
@@ -231,6 +249,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             }
         }
         System.out.println("                               -----");
+        checkAcc ();
     }
 
     @Override
@@ -248,7 +267,9 @@ public class WatchManager implements IProductService , IOFile<Product> {
         if (!check) {
             System.out.println("Not exist product of your category choice!");
         }
+
         System.out.println("                               -----");
+        checkAcc ();
     }
 
 }

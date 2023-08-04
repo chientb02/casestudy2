@@ -3,6 +3,7 @@ package caseStudy.model.shoppingCart;
 import java.io.Serializable;
 
 public class CustomerDetails implements Serializable {
+    private static final long serialVersionUID = 234122996006267687L;
     private String name ;
     private Address address ;
     private String phoneNumber ;

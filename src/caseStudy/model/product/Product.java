@@ -3,6 +3,7 @@ package caseStudy.model.product;
 import java.io.Serializable;
 
 public class Product implements Serializable {
+    private static final long serialVersionUID = 234122996006267687L;
     private String name ;
     private double price ;
     private double duration ;
@@ -62,12 +63,11 @@ public class Product implements Serializable {
 
     @Override
     public String toString() {
-        return "Product{" +
-                "name='" + name + '\'' +
-                ", price=" + price +
-                ", duration=" + duration +
-                ", operatingSystem=" + operatingSystem +
-                ", quantity=" + quantity +
-                '}';
+        return "name :" + name + "\n" +
+                ", price : " + price +"\n" +
+                ", duration : " + duration +"\n" +
+                ", operatingSystem : " + operatingSystem +"\n" +
+                ", quantity : " + quantity + "\n" +
+                "----";
     }
 }

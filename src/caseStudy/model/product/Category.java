@@ -3,6 +3,7 @@ package caseStudy.model.product;
 import java.io.Serializable;
 
 public class Category implements Serializable {
+    private static final long serialVersionUID = 234122996006267687L;
     private String name ;
 
     public Category(String name) {
@@ -22,8 +23,7 @@ public class Category implements Serializable {
 
     @Override
     public String toString() {
-        return "Category{" +
-                "name='" + name + '\'' +
-                '}';
+        return name + "" ;
+
     }
 }

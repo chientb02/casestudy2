@@ -12,7 +12,7 @@ public class MenuUser {
         CartManager cartManager = new CartManager(scanner , productManage);
         MenuCart menuCart = new MenuCart();
         int choice;
-        System.out.println("Wellcome to Store");
+        System.out.println("Welcome to Store");
         System.out.println("--------------------------------------------------");
         do {
             System.out.println("Menu");
@@ -23,7 +23,6 @@ public class MenuUser {
             System.out.println("5.  Display all product price");
             System.out.println("6.  Display all product");
             System.out.println("7.  Display Cart");
-            System.out.println("10. add product to cart");
             System.out.println("0. Exit");
             System.out.println("Enter your choice: ");
             choice = Integer.parseInt(scanner.nextLine());
