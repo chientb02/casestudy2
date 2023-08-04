@@ -51,6 +51,9 @@ public class MenuProduct {
                     case 9:
                         productManage.delete();
                         break;
+                    case 10 :
+                        productManage.updateQuantityTo10();
+                        break ;
 
                 }
             } while (choice != 0);

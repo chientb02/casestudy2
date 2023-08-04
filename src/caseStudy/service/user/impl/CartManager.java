@@ -20,6 +20,7 @@ public class CartManager implements ICartService, IOFile<Cart> {
     private final List<Bill> bills;
     private  final List<Cart> listCarts;
     private final Scanner scanner;
+    private static int tempt ;
 
 
     private final String PATH = "C:\\Users\\min\\IdeaProjects\\Case-Study\\src\\caseStudy\\io\\cart.txt";
@@ -44,17 +45,16 @@ public class CartManager implements ICartService, IOFile<Cart> {
         }
     }
     public void buyProduct () {
-        int index = 3 ;
+        tempt = 2 ;
         if (!Login.currentUser.equals("admin")) {
             System.out.println("1: add to cart");
             System.out.println("0: back to menu");
             int choice = Integer.parseInt(scanner.nextLine()) ;
             if (choice == 1) {
-                while(index > 0){
+                while(tempt > 0){
                     create();
-                    index--;
+                    tempt--;
                 }
-
             }
         }
     }
@@ -96,6 +96,12 @@ public class CartManager implements ICartService, IOFile<Cart> {
         }
         return billsList;
     }
+    public void displayAllBillAdmin (){
+        for (Bill bill:
+             bills) {
+            System.out.println(bill);
+        }
+    }
 
     @Override
     public void create() {
@@ -114,6 +120,8 @@ public class CartManager implements ICartService, IOFile<Cart> {
                                 carts.get(k).setQuantity(quantityBuy + carts.get(k).getQuantity());
                                 System.out.println("Added product to cart successfully.");
                                 flag = false;
+                                write(carts, PATH);
+                                tempt = 0 ;
                             }
                         }
                     }
@@ -123,6 +131,7 @@ public class CartManager implements ICartService, IOFile<Cart> {
                             carts.add(new Cart(nameBuy, productManager.getProducts().get(i).getPrice(), quantityBuy, Login.currentUser));
                             System.out.println("Added product to cart successfully.");
                             write(carts, PATH);
+                            tempt = 0;
                         }
                     }else {
                         return;
@@ -206,8 +215,10 @@ public class CartManager implements ICartService, IOFile<Cart> {
         System.out.println("input phoneNumber");
         String phoneNumber = scanner.nextLine();
         CustomerDetails customerDetails = new CustomerDetails(newName,new Address(addressDetails,hamlet,commune,district,city),phoneNumber);
+        System.out.println("-----------------");
         Bill bill = new Bill(Login.currentUser,listCarts,checkBill(),customerDetails, LocalDate.now());
         bills.add(bill);
+        checkBill();
         System.out.println(bill);
         writeBill(bills, PATHBill);
         for (int i = 0; i < carts.size(); i++) {
@@ -230,9 +241,7 @@ public class CartManager implements ICartService, IOFile<Cart> {
         double total = 0 ;
         for (int i = 0; i < carts.size(); i++) {
             if (carts.get(i).getAccount().equals(Login.currentUser)){
-                if(listCarts.contains(carts.get(i))){
                     listCarts.add(carts.get(i));
-                }
                 total += carts.get(i).getQuantity() * carts.get(i).getPrice() ;
             }
         }

@@ -29,6 +29,13 @@ public class WatchManager implements IProductService , IOFile<Product> {
         return products;
     }
 
+    public void updateQuantityTo10 () {
+        for (Product product :
+                products) {
+            product.setQuantity(10);
+        }
+        write(products,PATH);
+    }
     @Override
     public void write(List<Product> products, String path) {
         try (ObjectOutputStream obj = new ObjectOutputStream(new FileOutputStream(path))) {
@@ -37,7 +44,6 @@ public class WatchManager implements IProductService , IOFile<Product> {
 
         }
     }
-
 
     @Override
     public List<Product> read(String path) {
