@@ -43,6 +43,21 @@ public class CartManager implements ICartService, IOFile<Cart> {
 
         }
     }
+    public void buyProduct () {
+        int index = 3 ;
+        if (!Login.currentUser.equals("admin")) {
+            System.out.println("1: add to cart");
+            System.out.println("0: back to menu");
+            int choice = Integer.parseInt(scanner.nextLine()) ;
+            if (choice == 1) {
+                while(index > 0){
+                    create();
+                    index--;
+                }
+
+            }
+        }
+    }
 
     @Override
     public List<Cart> read(String path) {

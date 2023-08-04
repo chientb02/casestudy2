@@ -37,16 +37,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
 
         }
     }
-    public void checkAcc () {
-        if (!Login.currentUser.equals("admin")) {
-            System.out.println("1: add to cart");
-            System.out.println("0: back to menu");
-            int choice = Integer.parseInt(scanner.nextLine()) ;
-            if (choice == 1) {
-                cartManager.create();
-            }
-        }
-    }
+
 
     @Override
     public List<Product> read(String path) {
@@ -141,7 +132,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product in list!");
         }
         System.out.println("                               -----");
-        checkAcc ();
+
     }
 
 
@@ -186,7 +177,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product in list!");
         }
         System.out.println("                               -----");
-        checkAcc ();
+
     }
 
     @Override
@@ -207,7 +198,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product in list!");
         }
         System.out.println("                               -----");
-        checkAcc ();
+
     }
 
     @Override
@@ -225,7 +216,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             System.out.println("Not exist product have name contains this word!");
         }
         System.out.println("                               -----");
-        checkAcc ();
+
     }
 
     @Override
@@ -249,7 +240,7 @@ public class WatchManager implements IProductService , IOFile<Product> {
             }
         }
         System.out.println("                               -----");
-        checkAcc ();
+
     }
 
     @Override
@@ -269,7 +260,6 @@ public class WatchManager implements IProductService , IOFile<Product> {
         }
 
         System.out.println("                               -----");
-        checkAcc ();
     }
 
 }

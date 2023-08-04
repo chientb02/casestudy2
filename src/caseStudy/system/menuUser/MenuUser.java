@@ -29,24 +29,31 @@ public class MenuUser {
             switch (choice) {
                 case 1:
                     productManage.displayByCategory(new Category());
+                    cartManager.buyProduct();
                     break;
                 case 2:
                     productManage.searchByName();
+                    cartManager.buyProduct();
                     break;
                 case 3:
                     productManage.displayMinPrice();
+                    cartManager.buyProduct();
                     break;
                 case 4:
                     productManage.displayMaxPrice();
+                    cartManager.buyProduct();
                     break;
                 case 5:
                     productManage.searchByPrice();
+                    cartManager.buyProduct();
                     break;
                 case 6:
                     productManage.display();
+                    cartManager.buyProduct();
                     break;
                 case 7:
                     menuCart.menuCart(cartManager);
+                    cartManager.buyProduct();
                     break;
                 case 10 :
                     cartManager.create();
